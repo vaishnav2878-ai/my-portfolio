@@ -650,6 +650,47 @@
   70% { box-shadow: 0 0 0 15px rgba(147,51,234,0); }
   100% { box-shadow: 0 0 0 0 rgba(147,51,234,0); }
 }
+    /* ================= MOBILE MENU ================= */
+
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-center {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: inherit;
+    display: none;
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .nav-center.show {
+    display: flex;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .theme-toggle {
+    margin-top: 1rem;
+  }
+}
+
 
   </style>
 </head>
@@ -658,10 +699,13 @@
 
 <!-- ================= NAVBAR ================= -->
 <nav>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+
   <h1>Vaishnav P</h1>
   
   <div class="nav-center">
-    <ul>
+    <ul id="navLinks">
+
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -834,11 +878,19 @@
     const theme = body.classList.contains('dark') ? 'dark' : 'light';
     localStorage.setItem('theme', theme);
   });
+  const menuToggle = document.getElementById("menuToggle");
+const navCenter = document.querySelector(".nav-center");
+
+menuToggle.addEventListener("click", () => {
+  navCenter.classList.toggle("show");
+});
+
 </script>
 
 </body>
 
 </html>
+
 
 
 
