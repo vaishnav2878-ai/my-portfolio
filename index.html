@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vaishnav P | Frontend Developer</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..900&family=Ovo&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= ROOT VARIABLES ================= */
+    :root {
+      --color-primary: #000000;
+      --color-white: #ffffff;
+      --color-gray-50: #f9fafb;
+      --color-gray-100: #f3f4f6;
+      --color-gray-600: #4b5563;
+      --color-gray-700: #374151;
+      --color-border: #e5e7eb;
+      --color-dark-theme: #11001f;
+      --color-dark-hover: #2a004a;
+      --font-outfit: 'Outfit', sans-serif;
+      --font-ovo: 'Ovo', serif;
+    }
+
+    /* ================= GLOBAL RESET ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-outfit);
+      line-height: 2rem;
+      color: var(--color-primary);
+      background-color: var(--color-white);
+    }
+
+    body.dark {
+      background-color: var(--color-dark-theme);
+      color: var(--color-white);
+    }
+
+    /* ================= NAVBAR ================= */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 50;
+      transition: all 0.3s ease;
+    }
+
+    body.dark nav {
+      background-color: rgba(17, 0, 31, 0.8);
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      font-family: var(--font-ovo);
+      font-weight: 600;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      font-family: var(--font-ovo);
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+      position: relative;
+      font-size: 0.95rem;
+    }
+
+    nav ul li a:hover {
+      color: var(--color-gray-600);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    body.dark nav ul li a::after {
+      background-color: var(--color-white);
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      nav ul li a {
+        font-size: 0.85rem;
+      }
+      
+      nav h1 {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 0.75rem;
+      }
+      
+      nav h1 {
+        font-size: 1rem;
+      }
+      
+      nav ul {
+        gap: 0.5rem;
+      }
+      
+      nav ul li a {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ================= HOME SECTION ================= */
+    #home {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    #home h3 {
+      font-size: 1.25rem;
+      font-family: var(--font-ovo);
+      font-weight: 400;
+    }
+
+    #home h1 {
+      font-size: 3rem;
+      font-family: var(--font-ovo);
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+
+    #home > p {
+      max-width: 42rem;
+      font-family: var(--font-ovo);
+      margin-bottom: 1rem;
+    }
+
+    .home-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 0.5rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-family: var(--font-outfit);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #9333ea, #ec4899, #f97316);
+      color: var(--color-white);
+      border: 2px solid transparent;
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      background-color: transparent;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-gray-50);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .btn-secondary {
+      border-color: var(--color-white);
+      color: var(--color-white);
+    }
+
+    body.dark .btn-secondary:hover {
+      background-color: var(--color-dark-hover);
+    }
+
+    @media (min-width: 640px) {
+      #home h1 {
+        font-size: 3.75rem;
+      }
+    }
+
+    /* ================= SECTION STYLING ================= */
+    section {
+      padding: 5rem 12%;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      font-family: var(--font-ovo);
+      margin-bottom: 2.5rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 6%;
+      }
+      
+      section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    /* ================= ABOUT SECTION ================= */
+    #about {
+      background-color: var(--color-white);
+    }
+
+    body.dark #about {
+      background-color: var(--color-dark-theme);
+    }
+
+    #about p {
+      max-width: 56rem;
+      margin: 0 auto;
+      text-align: center;
+      font-family: var(--font-ovo);
+      line-height: 1.8;
+    }
+
+    /* ================= SKILLS SECTION ================= */
+    #skills {
+      background-color: var(--color-gray-50);
+    }
+
+    body.dark #skills {
+      background-color: var(--color-dark-hover);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 640px) {
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .skill-card {
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      background-color: var(--color-white);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .skill-card {
+      border-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(42, 0, 74, 0.3);
+    }
+
+    body.dark .skill-card:hover {
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .skill-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .skill-card p {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      color: var(--color-gray-700);
+    }
+
+    body.dark .skill-card p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ================= PROJECTS SECTION ================= */
+    #projects {
+      background-color: var(--color-white);
+    }
+
+    body.dark #projects {
+      background-color: var(--color-dark-theme);
+    }
+
+    .project-card {
+      max-width: 80rem;
+      margin: 0 auto 2.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      background-color: var(--color-white);
+    }
+
+    .project-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .project-card {
+      border-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(42, 0, 74, 0.2);
+    }
+
+    body.dark .project-card:hover {
+      box-shadow: 0 12px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-family: var(--font-ovo);
+    }
+
+    .project-card ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card ul li {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.6rem;
+    }
+
+    .project-card .tech-stack {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    body.dark .project-card .tech-stack {
+      border-top-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .project-card strong {
+      font-weight: 600;
+    }
+
+    /* ================= EDUCATION SECTION ================= */
+    #education {
+      background-color: var(--color-gray-50);
+    }
+
+    body.dark #education {
+      background-color: var(--color-dark-hover);
+    }
+
+    .education-container {
+      max-width: 64rem;
+      margin: 0 auto;
+    }
+
+    .education-item {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border-left: 3px solid var(--color-primary);
+      background-color: var(--color-white);
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .education-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .education-item {
+      border-left-color: var(--color-white);
+      background-color: rgba(42, 0, 74, 0.3);
+    }
+
+    body.dark .education-item:hover {
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .education-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .education-item h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .education-item p {
+      font-size: 0.875rem;
+      color: var(--color-gray-600);
+    }
+
+    body.dark .education-item p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ================= CONTACT SECTION ================= */
+    #contact {
+      background-color: var(--color-white);
+    }
+
+    body.dark #contact {
+      background-color: var(--color-dark-theme);
+    }
+
+    .contact-info {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-info p:hover {
+      transform: translateX(5px);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      background-color: var(--color-white);
+    }
+
+    body.dark footer {
+      border-top-color: rgba(255, 255, 255, 0.2);
+      background-color: var(--color-dark-theme);
+    }
+
+    footer p {
+      font-size: 0.875rem;
+      color: var(--color-gray-600);
+    }
+
+    body.dark footer p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ================= DARK MODE TOGGLE ================= */
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--color-primary);
+      background-color: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .theme-toggle {
+      border-color: var(--color-white);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      background-color: var(--color-gray-50);
+    }
+
+    body.dark .theme-toggle:hover {
+      background-color: var(--color-dark-hover);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--color-primary);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .theme-toggle svg {
+      fill: var(--color-white);
+    }
+
+    .sun-icon,
+    .moon-icon {
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+
+    .sun-icon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    .moon-icon {
+      opacity: 0;
+      transform: rotate(180deg) scale(0);
+    }
+
+    body.dark .sun-icon {
+      opacity: 0;
+      transform: rotate(180deg) scale(0);
+    }
+
+    body.dark .moon-icon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    /* ================= RESPONSIVE DESIGN ================= */
+    @media (max-width: 480px) {
+      #home h1 {
+        font-size: 2.5rem;
+      }
+      
+      #home h3 {
+        font-size: 1rem;
+      }
+      
+      .home-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* ================= PROFILE IMAGE ================= */
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #9333ea;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4);
+}
+
+/* Mobile size */
+@media (max-width: 480px) {
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+}
+.profile-pic {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(147,51,234,0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(147,51,234,0); }
+  100% { box-shadow: 0 0 0 0 rgba(147,51,234,0); }
+}
+
+  </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+  <h1>Vaishnav P</h1>
+  
+  <div class="nav-center">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  
+  <!-- Dark Mode Toggle Button -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <!-- Sun Icon (Light Mode) -->
+    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    
+    <!-- Moon Icon (Dark Mode) -->
+    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- ================= HOME ================= -->
+<section id="home">
+  <img src="assets/profile.png" alt="Vaishnav P" class="profile-pic">
+
+
+  <h3>Hello, I'm</h3>
+  <h1>Vaishnav P</h1>
+  <p>Web Developer | BCA Graduate</p>
+
+  <div class="home-buttons">
+    <a href="#contact" class="btn-primary">Contact Me</a>
+    <a href="./assets/vaishnav-cv.pdf" download class="btn-secondary">
+  Download CV
+</a>
+
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <h2>Profile Summary</h2>
+  <p>
+    A highly motivated and enthusiastic Computer Science graduate with a strong foundation
+    in programming, software development, and problem-solving. Passionate about learning
+    new technologies and applying them to real-world challenges. Seeking an entry-level
+    or internship opportunity in the tech industry.
+  </p>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <h2>Technical Skills</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>C / C++</h3>
+      <p>Procedural & OOP concepts, pointers, memory management.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>HTML, CSS & JavaScript</h3>
+      <p>DOM manipulation, events, forms, responsive UI.</p>
+    </div>
+
+    <div class="skill-card">
+      <h3>Java (Basic)</h3>
+      <p>Classes, objects, inheritance, exception handling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <h2>Projects</h2>
+
+  <!-- Project 1 -->
+  <div class="project-card">
+    <h3>Fashion Store – Frontend E-commerce Website</h3>
+    <ul>
+      <li>Built a complete frontend e-commerce website using HTML5, CSS3, and JavaScript.</li>
+      <li>Created product collections with images, prices, and purchase options.</li>
+      <li>Implemented Add to Cart and Buy Now functionality.</li>
+      <li>Added size & quantity selection with dynamic cart updates.</li>
+      <li>Used Flexbox and Grid for responsive layouts.</li>
+    </ul>
+    <p class="tech-stack">
+      <strong>Technologies:</strong> HTML5, CSS3, JavaScript, Flexbox, CSS Grid
+    </p>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project-card">
+    <h3>Random Password Generator – JavaScript Web App</h3>
+    <ul>
+      <li>Developed a web-based random password generator.</li>
+      <li>Implemented custom password length and character options.</li>
+      <li>Used JavaScript randomization logic to generate secure passwords.</li>
+      <li>Applied DOM manipulation and event handling.</li>
+      <li>Added copy-to-clipboard functionality.</li>
+    </ul>
+    <p class="tech-stack">
+      <strong>Technologies:</strong> HTML5, CSS3, JavaScript (DOM, Events, String Handling)
+    </p>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section id="education">
+  <h2>Education</h2>
+
+  <div class="education-container">
+    <div class="education-item">
+      <h3>BCA – CMS College of Science & Commerce</h3>
+      <p>2022 – 2025 | Coimbatore, Tamil Nadu</p>
+    </div>
+
+    <div class="education-item">
+      <h3>Higher Secondary (Computer Science)</h3>
+      <p>2020 – 2022 | SNMHSS Parappanangadi, Malappuram</p>
+    </div>
+
+    <div class="education-item">
+      <h3>SSLC</h3>
+      <p>2020 | SNMHSS Parappanangadi, Malappuram</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="contact-info">
+    <p>📍 Kerala, India</p>
+    <p>📞 +91 94465 37362</p>
+    <p>✉️ vaishnav2878@gmail.com</p>
+    <p>🔗 LinkedIn (add link)</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>© 2025 Vaishnav P | Web Developer</p>
+</footer>
+
+<!-- ================= DARK MODE SCRIPT ================= -->
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Check for saved theme preference or default to light mode
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  if (currentTheme === 'dark') {
+    body.classList.add('dark');
+  }
+
+  // Toggle dark mode
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    
+    // Save theme preference
+    const theme = body.classList.contains('dark') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+  });
+</script>
+
+</body>
+</html>
